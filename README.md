@@ -1,129 +1,75 @@
-# PocketBook
+# To-Do-List
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/hilanmiao/LanMiaoDesktop/master/assets/logo.png">
-</p>
-<p align="center">
-  <a href="https://travis-ci.org/hilanmiao/LanMiaoDesktop/builds">
-    <img src="https://travis-ci.org/hilanmiao/LanMiaoDesktop.svg?branch=master" alt="">
-  </a>
-  <a href="https://github.com/hilanmiao/LanMiaoDesktop/blob/master/LICENSE">
-      <img src="https://img.shields.io/github/license/hilanmiao/LanMiaoDesktop.svg" alt="">
-    </a>
+> 待办事宜
+
+<p align="center" style="width:150px;height:150px">
+  <img src="https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/image/To-Do-List/logo.png" alt="">
 </p>
 
-## 概述
+## 下载
+[点击进入下载页面](https://github.com/gorkys/To-Do-List/releases)
 
-**使用Electron开发一套记账软件，几乎每一个实现都会有一片博文说明。**
+## 应用说明
+项目功能：
 
+- [x] 新建与编辑待办事项
+- [x] 恢复与删除已完成事项
+- [x] 完成事项进度条
+- [x] Mini窗口以及双击新建剪贴板数据
+- [x] 日程提醒
+- [x] 支持剪贴板新建事项
+- [x] Mini窗口动画
 
-## 下载安装
+技术栈：
 
-macOS用户请下载最新版本的`dmg`文件，windows用户请下载最新版本的`exe`文件，linux用户请下载`AppImage`文件。
+- `electron-vue`
+- `Vue`
+- `Vuex`
+- `lowdb`
+- `element-ui`
 
-点击此处下载[应用](https://github.com/hilanmiao/LanMiaoDesktop/releases)。
+## 项目截图:
 
-安装并运行过一次之后，可以点击此处[尝试打开](PocketBook:?a=1&b=2)（github的markdown不认这个链接，可以直接在浏览器地址栏中输入：PocketBook:?a=1&b=2）。
-
-
-## 应用截图
-
-![首页](https://raw.githubusercontent.com/hilanmiao/LanMiaoDesktop/master/assets/home.jpg)
-
-![登录](https://raw.githubusercontent.com/hilanmiao/LanMiaoDesktop/master/assets/login.png)
+![](https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/image/To-Do-List/to-do-list.gif)
 
 ## 开发说明
 
-> 目前仅针对Windows。Mac、Linux平台并未测试。
+> 目前仅针对Windows。Mac、Linux平台并未兼容。
 
-``` bash
-# install dependencies
-npm install
+>如果想学习Electron-vue的开发，可以查看Molunerfinn写的系列教程——[Electron-vue开发实战](https://molunerfinn.com/tags/Electron-vue/)
 
-# serve with hot reload at localhost:9080
-npm run dev
+遇到的一些问题可以参考我踩过的坑，[Electron-vue开发实战之To-do-List](http://tingtas.com/posts/7bca46d1)
 
-# build electron application for production
-npm run build
-
-# lint all JS/Vue component files in `src/`
-npm run lint
+## 开发模式
+输入npm run dev进入开发模式，开发模式具有热重载特性。不过需要注意的是，开发模式不稳定，会有进程崩溃的情况。此时需要：
+```base
+ctrl+c # 退出开发模式
+npm run dev # 重新进入开发模式
 ```
+## 生产模式
+如果你需要自行构建，可以npm run build开始进行构建。构建成功后，会在build目录里出现构建成功的相应安装文件。
 
-
-## 其他相关
-
-- [NSIS-UI](https://github.com/hilanmiao/NSIS-UI)：exe安装包美化程序。
-
+注意：如果你的网络环境不太好，可能会出现electron-builder下载electron二进制文件失败的情况。这个时候需要在npm run build之前指定一下electron的源为国内源：
+```base
+npm set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/
+npm run build
+```
+只需第一次构建的时候指定一下国内源即可。后续构建不需要特地指定。
+其它打包问题参考：<http://tingtas.com/posts/7bca46d1#electron-vue打包的正确姿势>
 
 ## 赞助
-
-如果你喜欢它,不妨给它点个star或者请我喝杯咖啡
-
-支付宝：
-
-<img src="https://raw.githubusercontent.com/hilanmiao/LanMiaoDesktop/master/assets/alipay.png" width="200" hegiht="200"/> 
+> To-Do-List是免费开源的软件,如果你喜欢它，对你有帮助，不妨请我喝杯咖啡吧
 
 微信：
 
-<img src="https://raw.githubusercontent.com/hilanmiao/LanMiaoDesktop/master/assets/wechatpay.png" width="200" hegiht="200"/>
+![](https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/sponsor/wechat.jpg)
 
+支付宝：
 
-## 开源协议
+![](https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/sponsor/alipay.png)
 
-本项目基于 [MIT](http://opensource.org/licenses/MIT)协议，请自由地享受和参与开源。
+## License
 
+[MIT](http://opensource.org/licenses/MIT)
 
-## 贡献
-
-如果你有好的意见或建议，欢迎给我们提 [issue] 或 [PR]，为优化 [LanMiaoDesktop] 贡献力量
-
-[PR]: https://github.com/hilanmiao/LanMiaoDesktop/pulls
-
-[issue]: https://github.com/hilanmiao/LanMiaoDesktop/issues
-
-[LanMiaoDesktop]: https://github.com/youzan/vant-weapp
-
-## 教程
-
-- [Electron开发实战之记账软件1——开篇](https://my.oschina.net/u/3667677/blog/3035515)
-
-- [Electron开发实战之记账软件2——使用electron-vue初始化项目并升级部分包](https://my.oschina.net/u/3667677/blog/3035513)
-
-- [Electron开发实战之记账软件3——使用UI框架vuetify实现页面](https://my.oschina.net/u/3667677/blog/3040223)
-
-- [Electron开发实战之记账软件4——无边框、窗口关闭、最大最小化、隐藏右键菜单](https://my.oschina.net/u/3667677/blog/3041467)
-
-- [Electron开发实战之记账软件5——制作ico格式的logo](https://my.oschina.net/u/3667677/blog/3041685)
-
-- [Electron开发实战之记账软件6——自定义系统托盘菜单、闪烁](https://my.oschina.net/u/3667677/blog/3041851)
-
-- [Electron开发实战之记账软件7——开机自动启动](https://my.oschina.net/u/3667677/blog/3042628)
-
-- [Electron开发实战之记账软件8——高级通知](https://my.oschina.net/u/3667677/blog/3043443)
-
-- [Electron开发实战之记账软件9——禁用一些事件](https://my.oschina.net/u/3667677/blog/3043516)
-
-- [Electron开发实战之记账软件10——保证只有一个实例](https://my.oschina.net/u/3667677/blog/3043529)
-
-- [Electron开发实战之记账软件11——打包及美化](https://my.oschina.net/u/3667677/blog/3043986)
-
-- [Electron开发实战之记账软件12——通过CI系统自动构建与发布](https://my.oschina.net/u/3667677/blog/3044025)
-
-- [Electron开发实战之记账软件13——添加Github徽章](https://my.oschina.net/u/3667677/blog/3044255)
-
-- [Electron开发实战之记账软件14——自动更新](https://my.oschina.net/u/3667677/blog/3046786)
-
-- [Electron开发实战之记账软件15——崩溃报告](https://my.oschina.net/u/3667677/blog/3047628)
-
-- [Electron开发实战之记账软件16——使用Docsify生成文档网站](https://my.oschina.net/u/3667677/blog/3048374)
-
-- [Electron开发实战之记账软件17——使用Lowdb存储数据](https://my.oschina.net/u/3667677/blog/3054535)
-
-- [Electron开发实战之记账软件18——备份、恢复、导入、导出](https://my.oschina.net/u/3667677/blog/3073660)
-
-- [Electron开发实战之记账软件19——通过协议唤起Electron应用](https://my.oschina.net/u/3667677/blog/3074681)
-
-Electron开发实战之记账软件1——迷你程序
-
-Electron开发实战之记账软件99——完结
+Copyright (c) 2017 - 2019 Gorkys

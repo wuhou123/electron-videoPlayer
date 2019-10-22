@@ -8,5 +8,5 @@ npm-debug.log
 npm-debug.log.*
 thumbs.db
 !.gitkeep
-.idea/
-yarn-error.log
+.idea
+package-lock.json

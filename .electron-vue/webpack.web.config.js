@@ -19,6 +19,17 @@ let webConfig = {
   module: {
     rules: [
       {
+        test: /\.(js|vue)$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        use: {
+          loader: 'eslint-loader',
+          options: {
+            formatter: require('eslint-friendly-formatter')
+          }
+        }
+      },
+      {
         test: /\.scss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader']
       },
@@ -83,31 +94,9 @@ let webConfig = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({filename: 'styles.css'}),
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: path.resolve(__dirname, '../src/index.ejs'),
-    //   minify: {
-    //     collapseWhitespace: true,
-    //     removeAttributeQuotes: true,
-    //     removeComments: true
-    //   },
-    //   nodeModules: false
-    // }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
-      templateParameters(compilation, assets, options) {
-        return {
-          compilation: compilation,
-          webpack: compilation.getStats().toJson(),
-          webpackConfig: compilation.options,
-          htmlWebpackPlugin: {
-            files: assets,
-            options: options
-          },
-          process,
-        };
-      },
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,
