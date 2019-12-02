@@ -1,27 +1,41 @@
 <template>
-    <v-navigation-drawer app permanent clipped class="app-side-bar" width="200px">
-      <v-list class="mt-n2">
-        <v-subheader dark class="subheader grey--text text--darken-1">
-          推荐
-        </v-subheader>
-        <v-list-item-group >
-          <v-list-item to="/main/recommend" active-class="route-active" class="nav-item" >
+  <v-navigation-drawer app permanent clipped class="app-side-bar" width="200px">
+    <v-list class="mt-n2">
+      <v-subheader dark class="subheader grey--text text--darken-1">
+        推荐
+      </v-subheader>
+      <v-list-item-group>
+        <!-- <v-list-item to="/main/recommend" active-class="route-active" class="nav-item" >
             <i class="iconfont icon-music mr-2"></i> 发现音乐
-          </v-list-item>
-          <v-list-item to='/main/personalFM' active-class="route-active" class="nav-item" >
-            <i class="iconfont icon-FM mr-2"></i> 私人FM
-          </v-list-item>
-          <v-list-item to='/main/video' active-class="route-active" class="nav-item" >
-            <i class="iconfont icon-video mr-2"></i> 视频
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
+          </v-list-item> -->
+        <v-list-item
+          to="/main/video"
+          active-class="route-active"
+          class="nav-item"
+        >
+          <i class="iconfont icon-video mr-2"></i> 视频搜索排行榜
+        </v-list-item>
+        <v-list-item
+          to="/main/personalFM"
+          active-class="route-active"
+          class="nav-item"
+        >
+          <i class="iconfont icon-FM mr-2"></i> 资源列表
+        </v-list-item>
+        <v-list-item
+          to="/main/play/index"
+          active-class="route-active"
+          class="nav-item"
+        >
+          <i class="el-icon-video-camera-solid mr-2"></i> 播放器
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
-
 <script>
-import { VNavigationDrawer, VSubheader} from 'vuetify/lib'
+import { VNavigationDrawer, VSubheader } from 'vuetify/lib'
 export default {
   components: {
     VNavigationDrawer,
@@ -31,11 +45,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-side-bar{
+.app-side-bar {
   background-color: #191b1f;
 }
-.route-active{
-  &::after{
+.route-active {
+  &::after {
     position: absolute;
     content: '';
     display: block;
@@ -46,11 +60,11 @@ export default {
     background-color: $theme-color;
   }
 }
-.nav-item{
+.nav-item {
   min-height: 32px;
   font-size: 13px;
 }
-.subheader{
+.subheader {
   font-size: 13px;
   height: 32px;
 }

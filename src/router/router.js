@@ -7,12 +7,13 @@ import personalFMRoutes from '@/router/modules/personalFM.js'
 import personalizedContentRoutes from '@/router/modules/personalizedContent.js'
 import videoRoutes from '@/router/modules/video.js'
 import songListDetailRoutes from '@/router/modules/songListDetail.js'
+import playRoutes from '@/router/modules/play.js'
 
 import Login from '@/views/login/login.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/main/recommend/index'
+    redirect: '/main/video'
   },
   {
     path: '/main',
@@ -22,7 +23,8 @@ const routes = [
       ...personalFMRoutes,
       ...personalizedContentRoutes,
       ...videoRoutes,
-      ...songListDetailRoutes
+      ...songListDetailRoutes,
+      ...playRoutes
     ]
   },
   { path: '/login', component: Login }

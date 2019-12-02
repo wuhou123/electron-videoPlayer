@@ -28,7 +28,8 @@ export default function registerVLoadingDirective(_Vue) {
         el.$loading.loading = value
       }
     },
-    unbind(el){
+    unbind(el) {
+      if (!el || !el.$loading || !el.$loading.$destroy) return
       el.$loading.$destroy()
       delete el.$loading
     }

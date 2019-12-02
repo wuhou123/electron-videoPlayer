@@ -8,9 +8,9 @@ import BaseVideoCover from '@/base/video-cover/base-video-cover.vue'
 import BaseRadioCover from '@/base/radio-cover/base-radio-cover.vue'
 import BaseDialog from '@/base/dialog/base-dialog.vue'
 import dayjs from '@/common/day.js'
-import { Sortable, Plugins  } from '@shopify/draggable'
-import {getPersistLayout, persistLayout} from '@/store/persist/layout.js'
-const defaultLayout = ['推荐歌单','独家放送','最新音乐','推荐MV','主播电台']
+import { Sortable, Plugins } from '@shopify/draggable'
+import { getPersistLayout, persistLayout } from '@/store/persist/layout.js'
+const defaultLayout = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台']
 import {
   getBanner,
   getRecommendSongListWithLogin,
@@ -58,29 +58,38 @@ export default {
   created() {
     Promise.all([
       getBanner(),
-      this.loginState ? getRecommendSongListWithLogin() : getRecommendSongListWithoutLogin(),
+      this.loginState
+        ? getRecommendSongListWithLogin()
+        : getRecommendSongListWithoutLogin(),
       getPersonalizedContent(),
       getLatestMusic(),
       getRecommendMV(),
-      getRecommendRadio(),
-    ]).then(([
-      {banners}, 
-      songlist, 
-      {result: personalizedContent}, 
-      {result: latestMusic}, 
-      {result: recommendMV}, 
-      {djRadios: recommendRadio}]) => {
-      this.banners = banners.map(i => ({ ...i, src: i.imageUrl }))
-      this.recommendSongList = this.loginState ? songlist.recommend.slice(0, 9) : songlist.result.slice(0, 9)
-      this.personalizedContent = personalizedContent
-      this.latestMusic = latestMusic.map(m => m.song)
-      this.recommendMV = recommendMV
-      this.recommendRadio = recommendRadio
-      this.loading = false
-    }).catch(() => {
-      this.$alert({text:'网络出错', color: 'red'})
-      this.loading = false
-    })
+      getRecommendRadio()
+    ])
+      .then(
+        ([
+          { banners },
+          songlist,
+          { result: personalizedContent },
+          { result: latestMusic },
+          { result: recommendMV },
+          { djRadios: recommendRadio }
+        ]) => {
+          this.banners = banners.map(i => ({ ...i, src: i.imageUrl }))
+          this.recommendSongList = this.loginState
+            ? songlist.recommend.slice(0, 9)
+            : songlist.result.slice(0, 9)
+          this.personalizedContent = personalizedContent
+          this.latestMusic = latestMusic.map(m => m.song)
+          this.recommendMV = recommendMV
+          this.recommendRadio = recommendRadio
+          this.loading = false
+        }
+      )
+      .catch(() => {
+        this.$alert({ text: '网络出错', color: 'red' })
+        this.loading = false
+      })
   },
   methods: {
     genDynamicTemplate(tempName) {
@@ -191,7 +200,8 @@ export default {
                     <base-radio-cover
                       key={radio.id}
                       radio={radio}
-                      width="15.38%"/>
+                      width="15.38%"
+                    />
                   )
                 })}
               </v-row>
@@ -203,22 +213,28 @@ export default {
     showDialog() {
       this.dialogVisiable = true
     },
-    resetLayout(){
+    resetLayout() {
       this.layout = defaultLayout
       persistLayout(defaultLayout)
     },
-    handleDialogConfirm(){
-      const sortedLayout = Array.prototype.map.call(this.$refs['layout-list'].querySelectorAll('li'), node => node.innerText.trim())
+    handleDialogConfirm() {
+      const sortedLayout = Array.prototype.map.call(
+        this.$refs['layout-list'].querySelectorAll('li'),
+        node => node.innerText.trim()
+      )
       this.layout = sortedLayout
       this.dialogVisiable = false
       persistLayout(this.layout)
     },
-    handleDialogHide(){
-      Array.prototype.forEach.call(this.$refs['layout-list'].querySelectorAll('li'), (node, index) => node.innerText = this.layout[index])
+    handleDialogHide() {
+      Array.prototype.forEach.call(
+        this.$refs['layout-list'].querySelectorAll('li'),
+        (node, index) => (node.innerText = this.layout[index])
+      )
       this.dialogVisiable = false
     },
-    handleSongListClick(songList){
-      this.$router.push('/main/song-list-detail/' + songList.id )
+    handleSongListClick(songList) {
+      this.$router.push('/main/song-list-detail/' + songList.id)
     }
   },
   render() {
@@ -239,30 +255,38 @@ export default {
             height="30px"
             outlined
             class="subtitle-3 btn-border"
-            vOn:click={this.showDialog}>
+            vOn:click={this.showDialog}
+          >
             调整栏目顺序
           </v-btn>
         </v-row>
-        <base-dialog vModel={this.dialogVisiable} title="调整栏目顺序" {...{
-          on: {
-            'dialog:confirm': this.handleDialogConfirm,
-            'dialog:close': this.handleDialogHide,
-            'dialog:cancel': this.handleDialogHide
-          }
-        }}>
+        <base-dialog
+          vModel={this.dialogVisiable}
+          title="调整栏目顺序"
+          {...{
+            on: {
+              'dialog:confirm': this.handleDialogConfirm,
+              'dialog:close': this.handleDialogHide,
+              'dialog:cancel': this.handleDialogHide
+            }
+          }}
+        >
           <div class="dialog-content">
             <div class="tip subtitle-3 grey--text text--darken-1">
               <i class="iconfont icon-light"></i>
               想调整首页栏目的顺序？按住右边的按钮拖动即可。
             </div>
-            <ul class="layout-list pa-0" ref='layout-list'>
+            <ul class="layout-list pa-0" ref="layout-list">
               {this.layout.map(l => (
                 <li class="layout-item grey--text" key={l}>
                   {l} <i class="iconfont icon-menu"></i>
                 </li>
               ))}
             </ul>
-            <div class="default-sort subtitle-3 grey--text text-center" vOn:click={this.resetLayout}>
+            <div
+              class="default-sort subtitle-3 grey--text text-center"
+              vOn:click={this.resetLayout}
+            >
               恢复默认排序
             </div>
           </div>
@@ -324,8 +348,8 @@ export default {
       text-align: center;
       font-size: 104px;
       color: #b82525;
-      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
       @media screen and (max-width: 1066px) {
         font-size: 96px;
       }
@@ -361,10 +385,10 @@ export default {
       cursor: move;
     }
   }
-  .default-sort{
+  .default-sort {
     padding: 10px 0;
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: #35363a;
     }
   }

@@ -10,6 +10,9 @@ import registerAlert from '@/base/alert/alert.js'
 import registerVuetifyComponent from '@/base/registerVuetifyComponent.js'
 import registerVLoadingDirective from '@/base/loading/loading.js'
 import bus from '@/common/bus.js'
+import Api from './API'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(VueRouter)
 Vue.use(Vuetify)
@@ -17,6 +20,8 @@ Vue.use(Vuex)
 Vue.use(registerAlert)
 Vue.use(registerVuetifyComponent)
 Vue.use(registerVLoadingDirective)
+Vue.use(Api)
+Vue.use(ElementUI)
 
 new Vue({
   el: '#app',

@@ -1,10 +1,9 @@
 import axios from './base.js'
-/*
-
-### 所有榜单
-
-说明 : 调用此接口,可获取所有榜单
-**接口地址 :** `/toplist`
-*/
-
-export const getRankList = () => axios.get('/toplist')
+// 排行榜单接口
+export const getRankList = () => axios.get('/vatfs/baidu_top')
+//查询接口
+export const getSeach = params =>
+  axios.get('/vatfs/resource_site_collect/search', { params: params })
+//play接口
+export const getDetail = params =>
+  axios.get('/vatfs/resource_site_collect/getVDetail', { params: params })

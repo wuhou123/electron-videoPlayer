@@ -1,24 +1,45 @@
 <template>
   <v-container class="pt-0" fluid>
     <v-row>
-      <v-tabs background-color="transparent" centered height='42px' class="tabs" center-active>
-        <v-tab to='/main/video/index'>视频</v-tab>
-        <v-tab to='/main/video/mv'>MV</v-tab>
+      <v-tabs dark background-color="transparent" show-arrows @change="change">
+        <v-tab v-for="(item, index) in rankList" :key="index">{{
+          item.name
+        }}</v-tab>
       </v-tabs>
     </v-row>
 
     <v-container fluid>
-      <keep-alive >
-        <router-view></router-view>
-      </keep-alive>
+      <card-item :rankList="rankList[itemIndex]" v-if="rankList[itemIndex]" />
     </v-container>
   </v-container>
 </template>
 
 <script>
+import cardItem from './index'
 export default {
   data() {
-    return {}
+    return {
+      rankList: [],
+      itemIndex: 0
+    }
+  },
+  components: { cardItem },
+  created() {
+    this.getList()
+  },
+  methods: {
+    change(val) {
+      this.itemIndex = val
+    },
+    async getList() {
+      try {
+        let res = await this.$api.rank.getRankList()
+        this.loading = false
+        this.rankList = res.data || []
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 }
 </script>
