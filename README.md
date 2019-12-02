@@ -1,75 +1,72 @@
-# To-Do-List
 
-> 待办事宜
+## 安装流程
+### 前置条件
+1. 由于国内网络问题，安装淘宝源的cnpm
+  `npm install cnpm -g`
+2. 要求含有vue-cli3
+  `cnpm install @vue/cli`
 
-<p align="center" style="width:150px;height:150px">
-  <img src="https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/image/To-Do-List/logo.png" alt="">
-</p>
+### 开发环境
+1. clone本 repo
+2. 运行`cnpm install` 安装依赖
+3. 运行`cnpm run electron:serve`运行本项目
 
-## 下载
-[点击进入下载页面](https://github.com/gorkys/To-Do-List/releases)
+### 生产环境
+`vue.config.js`包含electron-builder的配置文件。
+1. 运行`cnpm run electron:build`输出至dist目录
 
-## 应用说明
-项目功能：
+--------------
+打包可能会超时, 这些作为本人记录，如果遇到问题，qq问我。
+1. 进入C:\Users\Hao Peng\AppData\Local\electron-builder\Cache
+2. 建立文件夹nsis和winCodeSign
+3. 下载报错中提示的软件版本，并放入对应文件夹
+--------------
 
-- [x] 新建与编辑待办事项
-- [x] 恢复与删除已完成事项
-- [x] 完成事项进度条
-- [x] Mini窗口以及双击新建剪贴板数据
-- [x] 日程提醒
-- [x] 支持剪贴板新建事项
-- [x] Mini窗口动画
+## 项目简介
+### 架构说明
+Electron分为Main进程（主进程）和Renderer进程（渲染进程）
 
-技术栈：
+主进程为Node.js服务端环境，负责数据库处理，文件处理
 
-- `electron-vue`
-- `Vue`
-- `Vuex`
-- `lowdb`
-- `element-ui`
+渲染进程为基于Vue.js的HTML环境
 
-## 项目截图:
+主进程会将渲染进程的html，创建window，挂载html运行
 
-![](https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/image/To-Do-List/to-do-list.gif)
+主进程与渲染进程通过electron包提供的ipcMain和ipcRenderer进行进程通讯。会采用封装的Payload和事件总线进行事件传递，见后文。
 
-## 开发说明
+#### 主进程
+1. electron + electron-builder：桌面端封装工具
+2. lowdb: 基于json的数据库
 
-> 目前仅针对Windows。Mac、Linux平台并未兼容。
+#### 渲染进程
+1. vue.js + vue-router + vuex + vue-cli-electron-builder-plugin：renderer架构
+2. element-ui: 前端组件库
 
->如果想学习Electron-vue的开发，可以查看Molunerfinn写的系列教程——[Electron-vue开发实战](https://molunerfinn.com/tags/Electron-vue/)
+### 文件结构
+1. build文件夹
+    存放打包需要的文件，目前只有icon
+2. public文件夹
+    * 静态文件夹
+    * 包含渲染进程favcon.ico,index.html等静态文件
+    * 包含主进程中的db存储，excel文件读写
+3. src文件夹
+    * 项目代码
+    * -assets: 渲染进程静态文件夹
+    * -biz: 主进程业务代码
+    * -components: Vue.js组件
+    * -plugins: Vue.js插件
+    * -router: Vue-router
+    * -store: Vuex
+    * -views: Vue.js主视图
+    * background.js: 主进程入口
+    * main.js 渲染进程入口
+4. vue.config.js
+    * vue-cli3的配置文件
+    * 内置[electron-builder插件](https://nklayman.github.io/vue-cli-plugin-electron-builder/)的配置。
 
-遇到的一些问题可以参考我踩过的坑，[Electron-vue开发实战之To-do-List](http://tingtas.com/posts/7bca46d1)
+## 进程通讯
+### 业务开发
+1. 在src/biz/api下定义api接口
+2. 在src/biz/routes下开发具体业务，可另创建js文件隔离业务实现。
+3. 渲染进程直接调用src/biz/api内的接口即可。
 
-## 开发模式
-输入npm run dev进入开发模式，开发模式具有热重载特性。不过需要注意的是，开发模式不稳定，会有进程崩溃的情况。此时需要：
-```base
-ctrl+c # 退出开发模式
-npm run dev # 重新进入开发模式
-```
-## 生产模式
-如果你需要自行构建，可以npm run build开始进行构建。构建成功后，会在build目录里出现构建成功的相应安装文件。
-
-注意：如果你的网络环境不太好，可能会出现electron-builder下载electron二进制文件失败的情况。这个时候需要在npm run build之前指定一下electron的源为国内源：
-```base
-npm set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/
-npm run build
-```
-只需第一次构建的时候指定一下国内源即可。后续构建不需要特地指定。
-其它打包问题参考：<http://tingtas.com/posts/7bca46d1#electron-vue打包的正确姿势>
-
-## 赞助
-> To-Do-List是免费开源的软件,如果你喜欢它，对你有帮助，不妨请我喝杯咖啡吧
-
-微信：
-
-![](https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/sponsor/wechat.jpg)
-
-支付宝：
-
-![](https://cdn.jsdelivr.net/gh/gorkys/CDN-Blog@master/blog/sponsor/alipay.png)
-
-## License
-
-[MIT](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2017 - 2019 Gorkys
