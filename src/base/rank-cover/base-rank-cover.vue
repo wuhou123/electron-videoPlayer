@@ -1,5 +1,9 @@
 <template>
-  <v-card class="card-div wrapper" :style="{ width }" @click="goPlay(rank.key)">
+  <v-card
+    class="card-div wrapper"
+    :style="{ width }"
+    @click="goSearch(rank.key)"
+  >
     <v-img
       :src="'http://pic.tsmp4.net/api/yingshi/img.php?key=' + rank.key"
       class="white--text align-end img-wrapper"
@@ -9,7 +13,7 @@
       <div class="play-count">
         <i class="el-icon-s-custom"></i> {{ rank.rank }}
       </div>
-      <i class="el-icon-search"></i>
+      <i class="el-icon-search" title="查资源"></i>
       <v-card-subtitle v-text="rank.key" class="white--text"></v-card-subtitle>
     </v-img>
   </v-card>
@@ -35,8 +39,12 @@ export default {
   },
   created() {},
   methods: {
-    goPlay(item) {
-      this.$router.push({ path: '/main/personalFM', query: { kw: item } })
+    goSearch(item) {
+      this.$router.push('main/')
+      this.$router.replace({
+        path: '/main/personalFM',
+        query: { kw: item, t: +new Date() }
+      })
     }
   }
 }

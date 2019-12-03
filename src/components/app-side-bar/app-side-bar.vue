@@ -13,21 +13,21 @@
           active-class="route-active"
           class="nav-item"
         >
-          <i class="iconfont icon-video mr-2"></i> 视频搜索排行榜
+          <i class="iconfont icon-video mr-2"></i> 热点排行榜
         </v-list-item>
         <v-list-item
           to="/main/personalFM"
           active-class="route-active"
           class="nav-item"
         >
-          <i class="iconfont icon-FM mr-2"></i> 资源列表
+          <i class="el-icon-notebook-2 mr-2"></i> 资源列表
         </v-list-item>
         <v-list-item
           to="/main/play/index"
           active-class="route-active"
           class="nav-item"
         >
-          <i class="el-icon-video-camera-solid mr-2"></i> 播放器
+          <i class="el-icon-video-camera-solid mr-2"></i> 播放页
         </v-list-item>
       </v-list-item-group>
     </v-list>

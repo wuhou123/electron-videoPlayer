@@ -1,7 +1,13 @@
 <template>
-  <div class="input-wrapper" :style="{width: _width, backgroundColor}">
-    <input type="text" :placeholder="placeholder" class="mr-1">
-    <i class="iconfont icon-search mr-2 grey--text"></i>
+  <div class="input-wrapper" :style="{ width: _width, backgroundColor }">
+    <input
+      type="text"
+      v-model="inputVal"
+      :placeholder="placeholder"
+      class="mr-1"
+      @keyup.enter="goSearch"
+    />
+    <i class="iconfont icon-search mr-2 grey--text" @click="goSearch"></i>
   </div>
 </template>
 
@@ -20,33 +26,50 @@ export default {
       type: String
     }
   },
+  data() {
+    return {
+      inputVal: ''
+    }
+  },
   computed: {
-    _width(){
-      return typeof this.width === 'number' ? (this.width + 'px') : this.width
+    _width() {
+      return typeof this.width === 'number' ? this.width + 'px' : this.width
+    }
+  },
+  methods: {
+    goSearch() {
+      if (!this.inputVal) return
+      this.$router.push('/')
+      setTimeout(() => {
+        this.$router.push({
+          path: '/main/personalFM',
+          query: { kw: this.inputVal }
+        })
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.input-wrapper{
+.input-wrapper {
   height: 24px;
   background-color: $bg-dark;
   padding-left: 8px;
   border-radius: 12px;
   display: flex;
   align-items: center;
-  input{
+  input {
     width: calc(100% - 36px);
     outline: none;
     font-size: 13px;
-    &::placeholder{
+    &::placeholder {
       color: #6b6b6b;
     }
   }
-  i{
+  i {
     cursor: pointer;
-    &:hover{
+    &:hover {
       color: #fff !important;
     }
   }

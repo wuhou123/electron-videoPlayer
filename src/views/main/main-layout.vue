@@ -8,21 +8,18 @@
         class="pl-0 pr-0 __fix-viewport beautify-scrollbar"
         ref="scroll-wrapper"
       >
-        <keep-alive :include="['recommend']">
+        <keep-alive>
           <router-view />
         </keep-alive>
       </v-container>
     </v-content>
-    <v-footer app height="50px">
-      底部播放器容器
-    </v-footer>
   </v-app>
 </template>
 
 <script>
 import AppTopBar from '@/components/app-top-bar/app-top-bar'
 import AppSideBar from '@/components/app-side-bar/app-side-bar'
-import { VApp, VContent, VFooter } from 'vuetify/lib'
+import { VApp, VContent } from 'vuetify/lib'
 import bus from '@/common/bus.js'
 import { throttle } from '@/common/utils.js'
 const Padding = 24
@@ -34,8 +31,7 @@ export default {
     VApp,
     AppTopBar,
     VContent,
-    AppSideBar,
-    VFooter
+    AppSideBar
   },
   methods: {
     handleScroll(ev) {
@@ -65,5 +61,9 @@ export default {
   max-height: calc(100vh - 102px);
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.footer-font {
+  font-size: 12px;
+  position: absolute;
 }
 </style>

@@ -11,8 +11,14 @@ import registerVuetifyComponent from '@/base/registerVuetifyComponent.js'
 import registerVLoadingDirective from '@/base/loading/loading.js'
 import bus from '@/common/bus.js'
 import Api from './API'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import VueDPlayer from 'vue-dplayer'
+import 'vue-dplayer/dist/vue-dplayer.css'
+import '@/plugins'
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 Vue.use(VueRouter)
 Vue.use(Vuetify)
@@ -21,10 +27,13 @@ Vue.use(registerAlert)
 Vue.use(registerVuetifyComponent)
 Vue.use(registerVLoadingDirective)
 Vue.use(Api)
-Vue.use(ElementUI)
+Vue.use(VueDPlayer)
 
 new Vue({
   el: '#app',
+  data: {
+    eventBus: new Vue()
+  },
   vuetify: new Vuetify({
     theme: {
       dark: true,

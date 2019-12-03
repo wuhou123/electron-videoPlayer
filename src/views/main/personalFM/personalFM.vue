@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-loading="loading">
     <v-row dense>
       <v-col
         v-for="(card, index) in cardList"
@@ -21,6 +21,18 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-alert
+      :value="!cardList || cardList.length === 0"
+      type="warning"
+      transition="scale-transition"
+      dark
+      outlined
+      border="left"
+      prominent
+      @click.native="$router.push('/')"
+    >
+      暂无资源，快去热点视频看看吧！
+    </v-alert>
   </v-container>
 </template>
 
@@ -31,13 +43,15 @@ import {
   VCardSubtitle,
   VCardText,
   VCardActions,
-  VImg
+  VImg,
+  VAlert
 } from 'vuetify/lib'
 export default {
   name: 'searchList',
   data() {
     return {
-      cardList: []
+      cardList: [],
+      loading: true
     }
   },
   components: {
@@ -46,20 +60,23 @@ export default {
     VCardSubtitle,
     VCardText,
     VCardActions,
-    VImg
+    VImg,
+    VAlert
   },
-  created() {
+  activated() {
     this.getList(this.$route.query.kw || '')
   },
   methods: {
     async getList(kw) {
-      if (!kw) return
+      if (!kw) return (this.loading = false)
+      this.loading = true
       let res = await this.$api.rank.getSeach({ kw: kw })
+      this.loading = false
       this.cardList = res.data.data || []
     },
     goDetail(vid) {
-      console.log('jinru')
       this.$router.push({ path: '/main/play/index', query: { vid: vid } })
+      this.$root.eventBus.$emit('refreshPlay')
     }
   }
 }

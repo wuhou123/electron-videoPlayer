@@ -1,7 +1,13 @@
 <template>
   <v-container class="pt-0" fluid>
     <v-row>
-      <v-tabs dark background-color="transparent" show-arrows @change="change">
+      <v-tabs
+        dark
+        background-color="transparent"
+        color="amber lighten-4"
+        show-arrows
+        @change="change"
+      >
         <v-tab v-for="(item, index) in rankList" :key="index">{{
           item.name
         }}</v-tab>

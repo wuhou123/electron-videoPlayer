@@ -1,13 +1,9 @@
 <template>
   <v-app-bar app clipped-left height="52px" flat class="app-top-bar">
     <v-row class="drag">
-      <router-link
-        class="logo-wrapper ml-3 no-drag"
-        to="/main/recommend/index"
-        tag="div"
-      >
-        <!-- <img src="./logo.png" class="logo" /> -->
-        视频
+      <router-link class="logo-wrapper ml-3 no-drag" to="/" tag="div">
+        <img src="https://wuhou123.cn/18-12-10/39834318.jpg" class="logo" />
+        加菲猫视频
       </router-link>
       <v-col>
         <v-row>
@@ -15,17 +11,17 @@
             <i class="iconfont icon-return grey--text"></i>
             <i class="iconfont icon-enter grey--text"></i>
           </div>
-          <BaseInput placeholder="搜索音乐、视频、歌词、电台" class="no-drag" />
+          <BaseInput placeholder="搜索视频" class="no-drag" />
         </v-row>
       </v-col>
-      <div
+      <!-- <div
         class="login-wrapper grey--text no-drag mr-4"
         v-if="!loginState"
         @click="showLoginWindow"
       >
         <i class="iconfont icon-user"></i>
         <span class="tip ml-2 mr-2">请登录</span>
-      </div>
+      </div> -->
       <div
         class="user-wrapper grey--text no-drag mr-4"
         v-if="loginState"
@@ -103,9 +99,9 @@
         </base-attached-dialog>
       </div>
       <div class="tool-group grey--text mr-4 no-drag">
-        <i class="iconfont icon-skin"></i>
-        <i class="iconfont icon-mail"></i>
-        <i class="iconfont icon-setup"></i>
+        <i class="iconfont icon-skin" @click="snackbar = true"></i>
+        <i class="iconfont icon-mail" @click="snackbar = true"></i>
+        <i class="iconfont icon-setup" @click="snackbar = true"></i>
       </div>
       <div class="window-btn-group grey--text mr-2 no-drag">
         <i class="iconfont icon-small-screen"></i>
@@ -123,11 +119,18 @@
         <i class="iconfont icon-close" @click="closeWindow"></i>
       </div>
     </v-row>
+
+    <v-snackbar v-model="snackbar">
+      未开发
+      <v-btn color="pink" text @click="snackbar = false" bottom>
+        关闭
+      </v-btn>
+    </v-snackbar>
   </v-app-bar>
 </template>
 
 <script>
-import { VAppBar, VAvatar } from 'vuetify/lib'
+import { VAppBar, VAvatar, VSnackbar } from 'vuetify/lib'
 import BaseInput from '@/base/input/base-input.vue'
 import BaseAttachedDialog from '@/base/attached-dialog/base-attached-dialog.vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
@@ -140,12 +143,14 @@ export default {
   components: {
     VAppBar,
     VAvatar,
+    VSnackbar,
     BaseInput,
     BaseAttachedDialog
   },
   data() {
     return {
-      userInfoVisiable: false
+      userInfoVisiable: false,
+      snackbar: false
     }
   },
   methods: {
@@ -236,7 +241,7 @@ export default {
     height: 2.5px;
     bottom: 0px;
     left: 0px;
-    background-image: linear-gradient(to right, #670404, $theme-color, #670404);
+    background-image: linear-gradient(to right, #796d09, $theme-color, #817308);
     z-index: -1;
   }
   .logo-wrapper {
@@ -244,6 +249,7 @@ export default {
     display: flex;
     align-items: center;
     .logo {
+      height: 40px;
       cursor: pointer;
     }
   }

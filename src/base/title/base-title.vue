@@ -1,12 +1,16 @@
 <template>
   <v-row class="d-flex justify-space-between align-center __title pb-1">
-    <span class="subtitle-1">{{text}}</span>
-      <router-link :to='to' tag='span' class="caption grey--text d-flex align-center" v-if="to">
-        更多<i class="iconfont icon-enter"></i>
-      </router-link>
+    <span class="subtitle-1">{{ text }}</span>
+    <router-link
+      :to="to"
+      tag="span"
+      class="caption grey--text d-flex align-center"
+      v-if="to"
+    >
+      更多<i class="iconfont icon-enter"></i>
+    </router-link>
   </v-row>
 </template>
-
 
 <script>
 export default {
@@ -17,20 +21,20 @@ export default {
     },
     to: {
       type: String,
-      default: '',
+      default: ''
     }
   }
 }
 </script>
 
 <style lang="scss">
-.__title{
+.__title {
   border-bottom: 1px solid #23262c;
   margin-bottom: 10px;
 }
-.caption{
+.caption {
   cursor: pointer;
-  &:hover{
+  &:hover {
     color: #fff !important;
   }
 }
