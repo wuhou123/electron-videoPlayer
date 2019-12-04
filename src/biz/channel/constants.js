@@ -1,8 +1,0 @@
-const PAYLOAD_TYPES = Object.freeze({
-  READ_EXCEL: 'READ_EXCEL',
-  READ_FIRST_EXCEL: 'READ_FIRST_EXCEL' 
-})
-
-export {
-  PAYLOAD_TYPES
-}

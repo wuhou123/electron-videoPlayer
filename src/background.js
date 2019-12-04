@@ -1,7 +1,8 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, Menu } from 'electron'
-import { establishConnection } from './biz/channel/connection'
+import { app, protocol, BrowserWindow, ipcMain, Menu, Tray } from 'electron'
+// import { establishConnection } from './biz/channel/connection'
+const path = require('path')
 import {
   createProtocol,
   installVueDevtools
@@ -28,7 +29,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true
     },
-    frame: true
+    frame: false
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -54,8 +55,32 @@ function createWindow() {
     mainWindow.restore()
   })
   // 关闭窗口
-  ipcMain.on('mainWindow:close', () => {
-    mainWindow.close()
+  ipcMain.on('mainWindow:close', event => {
+    mainWindow.hide()
+    mainWindow.setSkipTaskbar(true)
+    event.preventDefault()
+  })
+
+  // 托盘
+  let tray = null
+  //创建系统通知区菜单
+  tray = new Tray(path.join(__dirname, '../public/favicon.ico'))
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: '退出',
+      click: () => {
+        mainWindow.destroy()
+      }
+    } //我们需要在这里有一个真正的退出（这里直接强制退出）
+  ])
+  tray.setToolTip('加菲猫视频')
+  tray.setContextMenu(contextMenu)
+  tray.on('click', () => {
+    //我们这里模拟桌面程序点击通知区图标实现打开关闭应用的功能
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+    mainWindow.isVisible()
+      ? mainWindow.setSkipTaskbar(false)
+      : mainWindow.setSkipTaskbar(true)
   })
 }
 
@@ -94,7 +119,7 @@ app.on('ready', async () => {
     }
   }
   createWindow()
-  establishConnection()
+  // establishConnection()
 })
 
 // Exit cleanly on request from parent process in development mode.
@@ -111,17 +136,6 @@ if (isDevelopment) {
     })
   }
 }
-
-// ipcMain.on('messageA', function (e, arg) {
-//   console.dir(arg)
-
-//   e.reply('messageA-reply', readFile())
-// })
-
-// ipcMain.on('writeFile', function (e, fileName, content) {
-//   writeFile(fileName, content)
-// })
-
-// ipcMain.on('readFile', function (e, fileName) {
-//   e.reply('readFile-reply', readFile(fileName))
-// })
+let __static = require('path')
+  .join(__dirname, '/static')
+  .replace(/\\/g, '\\\\')
