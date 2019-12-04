@@ -58,7 +58,7 @@ export default {
 }
 .__fix-viewport {
   height: 100vh;
-  max-height: calc(100vh - 102px);
+  max-height: calc(100vh - 50px);
   overflow-y: scroll;
   overflow-x: hidden;
 }

@@ -33,6 +33,9 @@ export default {
   created() {
     this.getList()
   },
+  activated() {
+    if (!this.rankList || this.rankList.length === 0) this.getList()
+  },
   methods: {
     change(val) {
       this.itemIndex = val

@@ -18,14 +18,14 @@ module.exports = {
     electronBuilder: {
       builderOptions: {
         appId: 'com.example.app',
-        productName: 'test-app',
+        productName: '加菲猫视频',
         directories: {
           buildResources: './build',
           output: './dist'
         },
         win: {
           //win相关配置
-          icon: './build/icon2.png', //图标，当前图标在根目录下，注意这里有两个坑
+          icon: './build/icon.png', //图标，当前图标在根目录下，注意这里有两个坑
           target: [
             {
               target: 'nsis', //利用nsis制作安装程序,

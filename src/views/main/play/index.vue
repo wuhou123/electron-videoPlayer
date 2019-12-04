@@ -8,8 +8,14 @@
 </template>
 
 <script>
+import VueDPlayer from 'vue-dplayer'
+import 'vue-dplayer/dist/vue-dplayer.css'
+
 export default {
   name: 'play',
+  components: {
+    'd-player': VueDPlayer
+  },
   data() {
     return {
       src: '',
@@ -17,9 +23,18 @@ export default {
         video: {
           url: '',
           pic: '',
-          type: 'auto'
+          type: 'auto',
+          quality: [],
+          defaultQuality: 0
         },
-        autoplay: true
+        autoplay: true,
+        logo: 'https://wuhou123.cn/18-12-10/39834318.jpg',
+        highlight: [
+          {
+            time: 100,
+            text: '资源仅用于学习和测试！'
+          }
+        ]
       },
       player: null,
       showPlayer: false
@@ -45,11 +60,39 @@ export default {
     switchVideo(res) {
       setTimeout(() => {
         let url = res.data.playUrl || []
-        this.options.video.url = url[Object.keys(url)[0]]
+        let srcList = []
+        for (let i in url) {
+          srcList.push({
+            name: i,
+            url: url[i],
+            type: 'auto'
+          })
+        }
+        this.options.video.quality = srcList
         this.options.video.pic = res.data.pic
         this.showPlayer = true
       }, 1000)
     }
+    // sendDanmaku() {
+    //   setTimeout(() => {
+    //     this.showPlayer = this.$refs.player.dp
+    //     this.showPlayer.danmaku.draw({
+    //       text: 'DIYgod is amazing',
+    //       color: '#fff',
+    //       type: 'top'
+    //     })
+    //   })
+    // }
   }
 }
 </script>
+
+<style lang="scss">
+.dplayer-controller .dplayer-icons .dplayer-quality .dplayer-quality-list {
+  height: 200px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+</style>

@@ -11,8 +11,6 @@ import registerVuetifyComponent from '@/base/registerVuetifyComponent.js'
 import registerVLoadingDirective from '@/base/loading/loading.js'
 import bus from '@/common/bus.js'
 import Api from './API'
-import VueDPlayer from 'vue-dplayer'
-import 'vue-dplayer/dist/vue-dplayer.css'
 import '@/plugins'
 
 const originalPush = VueRouter.prototype.push
@@ -27,7 +25,6 @@ Vue.use(registerAlert)
 Vue.use(registerVuetifyComponent)
 Vue.use(registerVLoadingDirective)
 Vue.use(Api)
-Vue.use(VueDPlayer)
 
 new Vue({
   el: '#app',
