@@ -64,9 +64,4 @@ Electron分为Main进程（主进程）和Renderer进程（渲染进程）
     * vue-cli3的配置文件
     * 内置[electron-builder插件](https://nklayman.github.io/vue-cli-plugin-electron-builder/)的配置。
 
-## 进程通讯
-### 业务开发
-1. 在src/biz/api下定义api接口
-2. 在src/biz/routes下开发具体业务，可另创建js文件隔离业务实现。
-3. 渲染进程直接调用src/biz/api内的接口即可。
 
