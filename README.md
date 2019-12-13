@@ -4,9 +4,10 @@
 
 一套基于 electron6.0 + vue-cli3 + vuetify 的桌面端应用, 开发了视频资源列表展示，搜索，播放功能，主要用于测试和学习。
 
-## 体验包
+## 体验
 
 windows 系统可以 [下载应用](https://github.com/wuhou123/electron-videoPlayer/releases)
+[document](https://wuhou123.gitee.io/vuepress)
 
 ## 依赖
 
