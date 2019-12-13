@@ -1,67 +1,103 @@
-
-## 安装流程
-### 前置条件
-1. 由于国内网络问题，安装淘宝源的cnpm
-  `npm install cnpm -g`
-2. 要求含有vue-cli3
-  `cnpm install @vue/cli`
-
-### 开发环境
-1. clone本 repo
-2. 运行`cnpm install` 安装依赖
-3. 运行`cnpm run electron:serve`运行本项目
-
-### 生产环境
-`vue.config.js`包含electron-builder的配置文件。
-1. 运行`cnpm run electron:build`输出至dist目录
-
---------------
-打包可能会超时, 这些作为本人记录，如果遇到问题，qq问我。
-1. 进入C:\Users\Hao Peng\AppData\Local\electron-builder\Cache
-2. 建立文件夹nsis和winCodeSign
-3. 下载报错中提示的软件版本，并放入对应文件夹
---------------
+# 基本信息
 
 ## 项目简介
-### 架构说明
-Electron分为Main进程（主进程）和Renderer进程（渲染进程）
 
-主进程为Node.js服务端环境，负责数据库处理，文件处理
+一套基于 electron6.0 + vue-cli3 + vuetify 的桌面端应用, 开发了视频资源列表展示，搜索，播放功能，主要用于测试和学习。
 
-渲染进程为基于Vue.js的HTML环境
+## 体验包
 
-主进程会将渲染进程的html，创建window，挂载html运行
+windows 系统可以 [下载应用](https://github.com/wuhou123/electron-videoPlayer/releases)
 
-主进程与渲染进程通过electron包提供的ipcMain和ipcRenderer进行进程通讯。会采用封装的Payload和事件总线进行事件传递，见后文。
+## 依赖
 
-#### 主进程
-1. electron + electron-builder：桌面端封装工具
-2. lowdb: 基于json的数据库
+```bash
+{
+  "name": "electron-vue3",
+  "version": "1.0.0",
+  "private": true,
+  "author": "yf",
+  "license": "MIT",
+  "description": "a demo",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "pr-build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "build": "vue-cli-service electron:build",
+    "electron:build2": "vue-cli-service electron:build --win msi",
+    "dev": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
+  },
+  "main": "background.js",
+  "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.8",
+    "axios": "^0.19.0",
+    "core-js": "^3.3.2",
+    "dayjs": "^1.8.17",
+    "electron-store": "^5.1.0",
+    "element-ui": "^2.12.0",
+    "lokijs": "^1.5.8",
+    "lowdb": "^1.0.0",
+    "vue": "^2.6.10",
+    "vue-dplayer": "^0.0.10",
+    "vue-router": "^3.1.3",
+    "vuetify": "^2.1.12",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-plugin-router": "^4.0.0",
+    "@vue/cli-plugin-vuex": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.3",
+    "electron": "^6.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.12.0",
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0",
+    "vue-cli-plugin-electron-builder": "^1.4.2",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.4.2"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "__npminstall_done": false
+}
+```
 
-#### 渲染进程
-1. vue.js + vue-router + vuex + vue-cli-electron-builder-plugin：renderer架构
-2. element-ui: 前端组件库
+**注意： vue-cli3 版本下安装配置 vue-cli-plugin-electron-builder，sass-loader8.0 配置全局变量变化**
 
-### 文件结构
-1. build文件夹
-    存放打包需要的文件，目前只有icon
-2. public文件夹
-    * 静态文件夹
-    * 包含渲染进程favcon.ico,index.html等静态文件
-    * 包含主进程中的db存储，excel文件读写
-3. src文件夹
-    * 项目代码
-    * -assets: 渲染进程静态文件夹
-    * -biz: 主进程业务代码
-    * -components: Vue.js组件
-    * -plugins: Vue.js插件
-    * -router: Vue-router
-    * -store: Vuex
-    * -views: Vue.js主视图
-    * background.js: 主进程入口
-    * main.js 渲染进程入口
-4. vue.config.js
-    * vue-cli3的配置文件
-    * 内置[electron-builder插件](https://nklayman.github.io/vue-cli-plugin-electron-builder/)的配置。
+## 安装概述
 
+#### 准备
 
+1. electron 安装打包依赖文件，建议使用 cnpm
+2. 尝试升级依赖包版本注意兼容问题
+
+#### 开发
+
+1. cnpm install
+2. yarn dev 开发环境调试
+3. yarn build 打包输出安装包
+
+#### 生产
+
+`vue.config.js`包含 electron-builder 的配置文件。
+
+1. 运行`yarn build`输出至 dist 目录
+2. 安装，愉快的玩耍
+
+## 扫盲
+
+[electron 了解入门](https://segmentfault.com/a/1190000019426512)
