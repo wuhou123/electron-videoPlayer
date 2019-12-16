@@ -4,7 +4,7 @@
 
 一套基于 electron6.0 + vue-cli3 + vuetify 的桌面端应用, 开发了视频资源列表展示，搜索，播放功能，主要用于测试和学习。
 
-[开发文档](https://wuhou123.gitee.io/vuepress)
+[开发文档](http://doc.wuhou123.cn/)
 
 ## 体验
 
