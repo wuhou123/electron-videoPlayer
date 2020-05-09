@@ -5,7 +5,7 @@
     @click="goSearch(rank.key)"
   >
     <v-img
-      :src="'http://pic.tsmp4.net/api/yingshi/img.php?key=' + rank.key"
+      :src="'https://api.yuzhitu.cn//sjbz/api.php?key=' + rank.key"
       class="white--text align-end img-wrapper"
       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
       height="150px"
